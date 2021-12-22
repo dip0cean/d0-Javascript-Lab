@@ -3,46 +3,34 @@ import React from 'react';
 import Square from '../square/square';
 
 class Board extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
-        }
-    }
 
-    handleClick(i) {
-        const squares = this.state.squares.slice();
-        if (calculateWinner(squares || squares[i])) {
-            return;
-        }
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({
-            squares: squares,
-            xIsNext: !this.state.xIsNext
-        });
-    }
-
+    /**
+     * 각 Square 에게 Board 의 현재 this.state.square 값을 표현하도록 한다.
+     * 
+     * @param {*} i 
+     * @returns Square Component
+     */
     renderSquare(i) {
         return (
         <Square 
-            value={this.state.squares[i]} 
-            onClick={() => this.handleClick(i)}
+            // 각 Square 의 인텍스를 기준으로 this.state.square 의 값 props 으로 전달
+            value={this.props.squares[i]} 
+            /*
+                Square 클릭 시, Board 의 this.handleClick 함수 호출하도록 설정
+                Square 에서 Board 의 this.state 를 직접 컨트롤 할 수 없다.
+            */
+            onClick={() => this.props.onClick(i)}
         />
         );
     }
 
+    /**
+     * 
+     * @returns Squares in Board
+     */
     render() {
-        const winner = calculateWinner(this.state.squares);
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
-        } else {
-            status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
-        }
         return (
             <div>
-                <div className='status'>{status}</div>
                 <div className='board-row'>
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -61,27 +49,6 @@ class Board extends React.Component {
             </div>
         );
     }
-}
-
-function calculateWinner(squares) {
-    const lines =[
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
-
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
-        }
-    }
-    return null;
 }
 
 export default Board;
