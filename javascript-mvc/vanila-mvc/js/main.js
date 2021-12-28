@@ -1,11 +1,6 @@
 import Controller from "./controller/Controller";
 import Store from "./model/Store";
 import storage from "./storage";
-import HistoryListView from "./view/HistoryListView";
-import KeywordListView from "./view/KeywordListView";
-import SearchFormView from "./view/SearchFormView";
-import SearchResultView from "./view/SearchResultView";
-import TabView from "./view/TabView";
 
 const tag = "[main]";
 
@@ -16,13 +11,7 @@ function main() {
 
   const store = new Store(storage);
 
-  const views = {
-    searchFormView: new SearchFormView(),
-    searchResultView: new SearchResultView(),
-    tabView: new TabView(),
-    keywordListView: new KeywordListView(),
-    historyListView: new HistoryListView(),
-  };
+  const views = {};
 
   new Controller(store, views);
 }
