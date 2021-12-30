@@ -8,9 +8,20 @@ export default class Store {
    * @param {*} storage Model
    */
   constructor(storage) {
-    console.log(tag, "Store");
+    console.log(tag, "constructor");
     if (!storage) throw "No Storage";
 
     this.storage = storage;
+
+    this.searchKeyword = ""; // 검색어
+    this.searchResult = []; // 검색 결과
+  }
+
+  search(keyword) {
+    this.searchKeyword = keyword;
+    this.searchResult = this.storage.productData.filter((product) =>
+      product.name.includes(keyword)
+    );
+    console.log(tag, "search", this.searchResult);
   }
 }

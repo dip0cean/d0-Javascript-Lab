@@ -8,9 +8,9 @@ const tag = "[View]";
 export default class View {
   /**
    * 자식 View 들을 관리하기 위해 Element 인자를 파라미터로 받는다.
-   * 
+   *
    * @param {*} element View 가 관리할 Element 인자
-   * @returns 
+   * @returns
    */
   constructor(element) {
     console.log(tag, "constructor");
@@ -25,7 +25,7 @@ export default class View {
 
   /**
    * 현재 자식 View (Element 요소)를 숨긴다.
-   * 
+   *
    * @returns View
    */
   hide() {
@@ -35,7 +35,7 @@ export default class View {
 
   /**
    * 현재 자식 View (Element 요소)를 표시한다.
-   * 
+   *
    * @returns View
    */
   show() {
@@ -45,10 +45,10 @@ export default class View {
 
   /**
    * 사용자의 행동에 대해 반응하기 위한 유틸리티 성 함수
-   * 
+   *
    * @param {*} eventName 이벤트 종류
    * @param {*} handler 발생시킬 이벤트 핸들러
-   * @returns 
+   * @returns
    */
   on(eventName, handler) {
     on(this.element, eventName, handler);
@@ -57,10 +57,10 @@ export default class View {
 
   /**
    * 이벤트 발생하기 위한 유틸리티 성 함수
-   * 
+   *
    * @param {*} eventName 이벤트 종류
-   * @param {*} data 
-   * @returns 
+   * @param {*} data
+   * @returns
    */
   emit(eventName, data) {
     emit(this.element, eventName, data);

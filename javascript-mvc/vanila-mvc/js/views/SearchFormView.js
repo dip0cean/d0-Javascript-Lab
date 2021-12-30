@@ -17,6 +17,7 @@ const tag = "[SearchFormView]";
             > submit 이벤트에 핸들러를 추가한다.
         > 검색 결과 표시는 과연 SearchFormView 의 역할일까?
             > 다른 컴포넌트에게 위임하는 것이 맞다. 왜?
+    4. X 버튼을 클릭하거나 검색어를 삭제하면 검색 결과를 삭제한다.
 
 */
 export default class SearchFormView extends View {
@@ -51,7 +52,12 @@ export default class SearchFormView extends View {
     // DOM 을 이용해서 검색창으로 지정된 태그에 keyup 이벤트를 생성한다.
     // 이 때, 생성되는 이벤트는 SearchFormView 클래스의 handleKeyup() 메소드로 설정한다.
     on(this.inputElement, "keyup", () => this.handleKeyup());
-    on(this.element, "submit", (event) => this.handleSubmit(event));
+
+    // X 버튼 클릭 시, 검색어 삭제 처리
+    on(this.resetElement, "click", () => this.handleReset());
+
+    // Enter 를 입력했을 때, handleSubmit() 메소드를 호출하는 이벤트를 생성한다.
+    this.on("submit", (event) => this.handleSubmit(event));
   }
 
   /**
@@ -60,6 +66,15 @@ export default class SearchFormView extends View {
   handleKeyup() {
     const { value } = this.inputElement;
     this.showResetButton(value.length > 0);
+
+    if (value.length <= 0) {
+      this.handleReset();
+    }
+  }
+
+  handleReset() {
+    console.log(tag, "handleClick");
+    this.emit("@reset");
   }
 
   /**

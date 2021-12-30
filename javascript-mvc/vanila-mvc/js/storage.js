@@ -13,7 +13,7 @@ const storage = {
     { id: 3, keyword: "검색기록 3", date: createPastDate(1) },
   ],
 
-  productionData: [
+  productData: [
     {
       id: 1,
       name: "비건 샐러드",
