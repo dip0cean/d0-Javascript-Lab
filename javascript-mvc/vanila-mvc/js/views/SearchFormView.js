@@ -18,7 +18,6 @@ const tag = "[SearchFormView]";
         > 검색 결과 표시는 과연 SearchFormView 의 역할일까?
             > 다른 컴포넌트에게 위임하는 것이 맞다. 왜?
     4. X 버튼을 클릭하거나 검색어를 삭제하면 검색 결과를 삭제한다.
-
 */
 export default class SearchFormView extends View {
   constructor() {
@@ -73,7 +72,8 @@ export default class SearchFormView extends View {
   }
 
   handleReset() {
-    console.log(tag, "handleClick");
+    console.log(tag, "handleReset");
+    this.showResetButton(false);
     this.emit("@reset");
   }
 

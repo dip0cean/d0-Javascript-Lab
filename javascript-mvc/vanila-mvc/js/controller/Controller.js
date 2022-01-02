@@ -1,5 +1,10 @@
 const tag = "[Controller]";
 
+/*
+    요구사항
+    1. 검색 결과가 검색폼 아래 위치한다. 검색 결과가 없을 경우와 있을 경우를 구분한다.
+    2. X 버튼을 클릭하면 검색폼이 초기화되고, 검색 결과가 사라진다.
+*/
 export default class Controller {
   constructor(store, { searchFormView, searchResultView }) {
     console.log(tag, "Controller");
@@ -26,6 +31,11 @@ export default class Controller {
 
   reset() {
     console.log(tag, "reset");
+    // this.search() 메소드를 사용하면 안되는건지?
+    // this.search("");
+    this.store.searchKeyword = "";
+    this.store.searchResult = [];
+    this.render();
   }
 
   render() {

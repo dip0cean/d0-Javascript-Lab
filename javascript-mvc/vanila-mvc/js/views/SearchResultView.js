@@ -8,6 +8,11 @@ export default class SearchResultView extends View {
     this.template = new Template();
   }
 
+  /**
+   * 검색 결과에 따라서 동적으로 DOM 을 표시해줘야 한다.
+   *
+   * @param {*} data 검색 결과
+   */
   show(data = []) {
     this.element.innerHTML =
       data.length > 0
@@ -17,6 +22,7 @@ export default class SearchResultView extends View {
   }
 }
 
+// DOM 을 만드는 요소
 class Template {
   getList(data) {
     return `
