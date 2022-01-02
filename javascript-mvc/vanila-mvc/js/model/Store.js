@@ -1,3 +1,5 @@
+import { TabType } from "../views/TabView.js";
+
 const tag = "[Store]";
 
 export default class Store {
@@ -15,6 +17,7 @@ export default class Store {
 
     this.searchKeyword = ""; // 검색어
     this.searchResult = []; // 검색 결과
+    this.selectedTab = TabType.KEYWORD; // 기본 탭타입
   }
 
   search(keyword) {

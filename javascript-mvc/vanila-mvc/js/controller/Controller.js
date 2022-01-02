@@ -6,14 +6,16 @@ const tag = "[Controller]";
     2. X 버튼을 클릭하면 검색폼이 초기화되고, 검색 결과가 사라진다.
 */
 export default class Controller {
-  constructor(store, { searchFormView, searchResultView }) {
+  constructor(store, { searchFormView, searchResultView, tabView }) {
     console.log(tag, "Controller");
     this.store = store;
 
     this.searchFormView = searchFormView;
     this.searchResultView = searchResultView;
+    this.tabView = tabView;
 
     this.subscribeViewEvents();
+    this.render();
   }
 
   subscribeViewEvents() {
@@ -21,6 +23,8 @@ export default class Controller {
     this.searchFormView
       .on("@submit", (event) => this.search(event.detail.value))
       .on("@reset", () => this.reset());
+
+    this.tabView.on("@change", (event) => this.changeTab(event.detail.value));
   }
 
   search(searchKeyword) {
@@ -38,13 +42,24 @@ export default class Controller {
     this.render();
   }
 
+  changeTab(tab) {
+    console.log(tag, "changeTab", tab);
+    this.store.selectedTab = tab;
+    this.render();
+  }
+
   render() {
     // 컨트롤러가 관리하고 있는 View 들을 이용해 화면에 출력하도록 한다.
     if (this.store.searchKeyword.length > 0) {
-      this.searchResultView.show(this.store.searchResult);
-      return;
+      return this.renderSearchResult();
     }
 
+    this.tabView.show(this.store.selectedTab);
     this.searchResultView.hide();
+  }
+
+  renderSearchResult() {
+    this.tabView.hide();
+    this.searchResultView.show(this.store.searchResult);
   }
 }
