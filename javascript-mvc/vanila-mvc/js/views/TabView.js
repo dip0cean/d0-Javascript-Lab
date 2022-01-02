@@ -1,4 +1,4 @@
-import { qs, qsAll, on, delegate } from "../helpers.js";
+import { delegate, qs, qsAll } from "../helpers.js";
 import View from "./View.js";
 
 export const TabType = {
@@ -35,7 +35,7 @@ export default class TabView extends View {
   }
 
   handlerClick(event) {
-    console.log(event.target);
+    console.log(tag, "handlerClick", event.target);
     const value = event.target.dataset.tab;
     this.emit("@change", { value });
   }
@@ -46,10 +46,7 @@ class Template {
     return `
         <ul class="tabs">
             ${Object.values(TabType)
-              .map((tabType) => ({
-                tabType,
-                tabLabel: TabLabel[tabType],
-              }))
+              .map((tabType) => ({ tabType, tabLabel: TabLabel[tabType] }))
               .map(this._getTab)
               .join("")}
         </ul>
@@ -59,7 +56,7 @@ class Template {
   _getTab({ tabType, tabLabel }) {
     return `
         <li data-tab="${tabType}">
-        ${tabLabel}
+            ${tabLabel}
         </li>
     `;
   }

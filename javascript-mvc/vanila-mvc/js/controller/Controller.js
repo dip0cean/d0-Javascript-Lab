@@ -1,3 +1,5 @@
+import { TabType } from "../views/TabView.js";
+
 const tag = "[Controller]";
 
 /*
@@ -6,13 +8,17 @@ const tag = "[Controller]";
     2. X 버튼을 클릭하면 검색폼이 초기화되고, 검색 결과가 사라진다.
 */
 export default class Controller {
-  constructor(store, { searchFormView, searchResultView, tabView }) {
+  constructor(
+    store,
+    { searchFormView, searchResultView, tabView, keywordListView }
+  ) {
     console.log(tag, "Controller");
     this.store = store;
 
     this.searchFormView = searchFormView;
     this.searchResultView = searchResultView;
     this.tabView = tabView;
+    this.keywordListView = keywordListView;
 
     this.subscribeViewEvents();
     this.render();
@@ -43,7 +49,7 @@ export default class Controller {
   }
 
   changeTab(tab) {
-    console.log(tag, "changeTab", tab);
+    console.log(tab, "changeTab", tab);
     this.store.selectedTab = tab;
     this.render();
   }
@@ -55,11 +61,17 @@ export default class Controller {
     }
 
     this.tabView.show(this.store.selectedTab);
+    if (this.store.selectedTab === TabType.KEYWORD) {
+      this.keywordListView.show(this.store.getKeywordList());
+    } else if (this.store.selectedTab === TabType.HISTORY) {
+      this.keywordListView.hide();
+    }
     this.searchResultView.hide();
   }
 
   renderSearchResult() {
     this.tabView.hide();
+    this.keywordListView.hide();
     this.searchResultView.show(this.store.searchResult);
   }
 }

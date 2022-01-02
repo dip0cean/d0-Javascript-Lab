@@ -17,7 +17,7 @@ export default class Store {
 
     this.searchKeyword = ""; // 검색어
     this.searchResult = []; // 검색 결과
-    this.selectedTab = TabType.KEYWORD; // 기본 탭타입
+    this.selectedTab = TabType.KEYWORD; // 탭 기본 타입
   }
 
   search(keyword) {
@@ -26,5 +26,9 @@ export default class Store {
       product.name.includes(keyword)
     );
     console.log(tag, "search", this.searchResult);
+  }
+
+  getKeywordList() {
+    return this.storage.keywordData;
   }
 }
